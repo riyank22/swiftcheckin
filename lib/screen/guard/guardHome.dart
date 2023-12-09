@@ -1,5 +1,6 @@
 import 'package:swiftcheckin/dataModels/guard.dart';
-import 'package:swiftcheckin/screen/profile.dart';
+import 'package:swiftcheckin/screen/guard/feature1.dart';
+import 'package:swiftcheckin/screen/guard/profile.dart';
 import 'package:swiftcheckin/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftcheckin/services/dataServices.dart';
@@ -34,13 +35,27 @@ class guardHomePage extends StatelessWidget {
                     MaterialButton(
                       onPressed: () => {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: ((context) =>
-                                    profilePage(obj: guardObject))))
+                          context,
+                          MaterialPageRoute(
+                            builder: ((context) =>
+                                profilePage(obj: guardObject)),
+                          ),
+                        )
                       },
                       color: Colors.green,
                       child: const Text("Profile"),
+                    ),
+                    MaterialButton(
+                      onPressed: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: ((context) => const Feature1()),
+                          ),
+                        )
+                      },
+                      color: Colors.green,
+                      child: const Text("ID check"),
                     ),
                   ],
                 ));
