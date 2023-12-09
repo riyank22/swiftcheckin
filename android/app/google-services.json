@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "255918606633",
+    "project_id": "swiftcheckin-87ac5",
+    "storage_bucket": "swiftcheckin-87ac5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255918606633:android:5c47b8f1b43e053e2a0f38",
+        "android_client_info": {
+          "package_name": "com.example.swiftcheckin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2oM7gT1AWS8byHqIrsQrhUDeTlTnD8DY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
