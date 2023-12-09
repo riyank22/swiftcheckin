@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:swiftcheckin/dataModels/guard.dart';
 import 'package:swiftcheckin/dataModels/student.dart';
 import 'package:swiftcheckin/screen/guard/validata.dart';
 import 'package:swiftcheckin/services/dataServices.dart';
 
 class Feature1 extends StatefulWidget {
-  const Feature1({super.key});
+  Feature1({Key? key, required this.guardObject}) : super(key: key);
+  guard guardObject;
 
   @override
   State<Feature1> createState() => _Feature1State();
@@ -47,7 +49,10 @@ class _Feature1State extends State<Feature1> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: ((context) => ValidatePage(obj: obj)),
+                    builder: ((context) => ValidatePage(
+                          guardObject: widget.guardObject,
+                          studentObject: obj,
+                        )),
                   ),
                 );
               } else {

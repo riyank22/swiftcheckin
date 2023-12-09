@@ -21,7 +21,7 @@ class Wrapper extends StatelessWidget {
                 .where('Email', isEqualTo: snapshot.data?.email)
                 .snapshots(),
             builder: (context, snapshot) {
-              if (!snapshot.hasData) {
+              if (snapshot.hasError) {
                 return const errorInvalidEmail();
               } else if (snapshot.data?.docs.elementAt(0)['Role'] ==
                   'Student') {

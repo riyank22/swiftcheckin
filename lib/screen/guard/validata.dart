@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:swiftcheckin/dataModels/guard.dart';
 import 'package:swiftcheckin/dataModels/student.dart';
 import 'package:swiftcheckin/services/dataServices.dart';
 
 class ValidatePage extends StatelessWidget {
-  ValidatePage({Key? key, required this.obj}) : super(key: key);
+  ValidatePage(
+      {Key? key, required this.studentObject, required this.guardObject})
+      : super(key: key);
 
-  student obj;
+  student studentObject;
+  guard guardObject;
 
   @override
   Widget build(BuildContext context) {
@@ -17,24 +21,24 @@ class ValidatePage extends StatelessWidget {
         children: [
           const SizedBox(height: 25),
           Text(
-            obj.firstName!,
+            studentObject.firstName!,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 35),
           ),
           const SizedBox(height: 25),
           Text(
-            obj.lastName!,
+            studentObject.lastName!,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 35),
           ),
           Text(
-            obj.uniqueID!.toString(),
+            studentObject.uniqueID!.toString(),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 35),
           ),
           MaterialButton(
             onPressed: () async {
-              dataServices.changeStudentState0(obj);
+              dataServices.syncEntry(studentObject, guardObject);
               Navigator.pop(context);
             },
             color: Colors.blue,

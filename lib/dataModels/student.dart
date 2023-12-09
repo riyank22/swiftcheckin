@@ -6,6 +6,7 @@ class student extends person {
   final String? programme;
   final int? batch;
   bool? state;
+  String? EventID;
 
   student({
     required super.emailID,

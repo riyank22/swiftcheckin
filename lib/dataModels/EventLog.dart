@@ -1,12 +1,12 @@
 class eventLog {
-  final int studentID;
-  final int guardID;
+  final int? studentID;
+  final int? guardID;
   String reason = "";
   DateTime? entryTime;
   DateTime? exitTime;
 
   eventLog(this.reason, this.guardID, this.studentID) {
-    entryTime = DateTime.now();
+    exitTime = DateTime.now();
   }
 
   eventLog.Noreason(this.guardID, this.studentID) {

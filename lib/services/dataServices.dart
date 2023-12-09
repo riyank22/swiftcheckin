@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:swiftcheckin/dataModels/EventLog.dart';
 import 'package:swiftcheckin/dataModels/guard.dart';
 import 'package:swiftcheckin/dataModels/student.dart';
 
@@ -20,7 +21,6 @@ class dataServices {
 
     if (snapshot.docs.isNotEmpty) {
       final userData = snapshot.docs.map((e) => student.fromID(e)).single;
-      print("Succes");
       return userData;
     } else {
       return null;
@@ -35,18 +35,44 @@ class dataServices {
   }
 
   //to change the state of the student, indicating check in chekc out
-  static Future changeStudentState0(student? studentObject) async {
+
+  static Future syncEntry(student? studentObject, guard guardObject) async {
+    //finding snapshot of the student in the student table
+    final result = await _db
+        .collection('Student Details')
+        .doc(studentObject?.emailID)
+        .get();
+
+    //for checking out
     if (studentObject?.state == true) {
+      final eventObj =
+          eventLog.Noreason(guardObject.uniqueID, studentObject!.uniqueID);
+      final docMap = {
+        "Student ID": studentObject.uniqueID,
+        "Gurad ID": guardObject.uniqueID,
+        "Reason": eventObj.reason,
+        "Exit Time": eventObj.exitTime,
+      };
+      //adding to the log table
+      _db.collection('Event Log').add(docMap).then((value) async => await _db
+          .collection('Student Details')
+          .doc(studentObject.emailID)
+          .update({'Last Event ID': value.id, 'Current Status': true}));
+      studentObject.state = false;
+      //as well as we are updating the student table
+    }
+    //for checking in
+    else {
+      //updating the log table
+      await _db
+          .collection('Event Log')
+          .doc(await result.data()?['Last Event ID'])
+          .update({'Entry Time': DateTime.now()});
+      //updating the student table
       await _db
           .collection('Student Details')
           .doc(studentObject?.emailID)
-          .update({'Current Status': false});
-      studentObject?.state = false;
-    } else {
-      await _db
-          .collection('Student Details')
-          .doc(studentObject?.emailID)
-          .update({'Current Status': true});
+          .update({'Last Event ID': "", 'Current Status': false});
       studentObject?.state = true;
     }
   }

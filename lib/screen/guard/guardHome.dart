@@ -50,7 +50,8 @@ class guardHomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: ((context) => const Feature1()),
+                            builder: ((context) =>
+                                Feature1(guardObject: guardObject)),
                           ),
                         )
                       },
