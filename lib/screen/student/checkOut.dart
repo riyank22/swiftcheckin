@@ -58,7 +58,7 @@ class _Feature1State extends State<CheckOut> {
                       MaterialPageRoute(
                         builder: ((context) => QR_Page(
                               data:
-                                  "{${widget.studentObject.uniqueID.toString()}},{$Reason}",
+                                  "{{Check Out},${widget.studentObject.uniqueID.toString()}},{$Reason}",
                             )),
                       ),
                     );
