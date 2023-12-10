@@ -41,6 +41,8 @@ dependencies:
   google_sign_in: ^6.1.6
   firebase_ui_oauth_google: ^1.2.14
   cloud_firestore: ^4.13.3
+  flutter_barcode_scanner: ^2.0.0
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

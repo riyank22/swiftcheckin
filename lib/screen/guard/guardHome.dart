@@ -30,7 +30,7 @@ class guardHomePage extends StatelessWidget {
                     MaterialButton(
                       onPressed: () async => await authService.signOut(),
                       color: Colors.green,
-                      child: Text(guardEmail),
+                      child: const Text("Sign Out"),
                     ),
                     MaterialButton(
                       onPressed: () => {
@@ -45,6 +45,7 @@ class guardHomePage extends StatelessWidget {
                       color: Colors.green,
                       child: const Text("Profile"),
                     ),
+                    const SizedBox(height: 10),
                     MaterialButton(
                       onPressed: () => {
                         Navigator.push(
@@ -57,6 +58,20 @@ class guardHomePage extends StatelessWidget {
                       },
                       color: Colors.green,
                       child: const Text("ID check"),
+                    ),
+                    const SizedBox(height: 10),
+                    MaterialButton(
+                      onPressed: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: ((context) =>
+                                Feature1(guardObject: guardObject)),
+                          ),
+                        )
+                      },
+                      color: Colors.blue,
+                      child: const Text("Scan QR"),
                     ),
                   ],
                 ));

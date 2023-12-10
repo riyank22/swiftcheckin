@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:swiftcheckin/dataModels/student.dart';
+import 'package:swiftcheckin/screen/student/checkIn.dart';
+import 'package:swiftcheckin/screen/student/checkOut.dart';
 import 'package:swiftcheckin/screen/student/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftcheckin/services/dataServices.dart';
@@ -54,14 +56,32 @@ class studentHomePage extends StatelessWidget {
                         builder: (context, snapshot) {
                           if (snapshot.data!["Current Status"] == true) {
                             return MaterialButton(
-                              onPressed: () => {},
+                              onPressed: () => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: ((context) => CheckOut(
+                                          studentObject: studentobj,
+                                        )),
+                                  ),
+                                )
+                              },
                               textColor: Colors.white,
                               color: Colors.red,
                               child: const Text("Check Out"),
                             );
                           } else {
                             return MaterialButton(
-                              onPressed: () => {},
+                              onPressed: () => {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: ((context) => CheckIn(
+                                          studentObject: studentobj,
+                                        )),
+                                  ),
+                                )
+                              },
                               textColor: Colors.white,
                               color: Colors.red,
                               child: const Text("Check In"),
