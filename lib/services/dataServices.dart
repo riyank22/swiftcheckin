@@ -45,6 +45,8 @@ class dataServices {
 
     //for checking out
     if (studentObject?.state == true) {
+      print('I am here');
+      studentObject?.state = false;
       final eventObj =
           eventLog.Noreason(guardObject.uniqueID, studentObject!.uniqueID);
       final docMap = {
@@ -57,23 +59,23 @@ class dataServices {
       _db.collection('Event Log').add(docMap).then((value) async => await _db
           .collection('Student Details')
           .doc(studentObject.emailID)
-          .update({'Last Event ID': value.id, 'Current Status': true}));
-      studentObject.state = false;
+          .update({'Last Event ID': value.id, 'Current Status': false}));
+
       //as well as we are updating the student table
     }
     //for checking in
     else {
       //updating the log table
+      studentObject?.state = true;
       await _db
           .collection('Event Log')
-          .doc(await result.data()?['Last Event ID'])
+          .doc(result.data()?['Last Event ID'])
           .update({'Entry Time': DateTime.now()});
       //updating the student table
       await _db
           .collection('Student Details')
           .doc(studentObject?.emailID)
-          .update({'Last Event ID': "", 'Current Status': false});
-      studentObject?.state = true;
+          .update({'Last Event ID': "", 'Current Status': true});
     }
   }
 }

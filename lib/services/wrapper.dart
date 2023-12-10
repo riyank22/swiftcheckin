@@ -21,15 +21,15 @@ class Wrapper extends StatelessWidget {
                 .where('Email', isEqualTo: snapshot.data?.email)
                 .snapshots(),
             builder: (context, snapshot) {
-              if (snapshot.hasError) {
+              if (snapshot.data!.docs.isEmpty) {
                 return const errorInvalidEmail();
               } else if (snapshot.data?.docs.elementAt(0)['Role'] ==
                   'Student') {
                 return studentHomePage(
-                    stduentEmail: snapshot.data?.docs.elementAt(0)['Email']);
+                    stduentEmail: snapshot.data!.docs.elementAt(0)['Email']);
               } else {
                 return guardHomePage(
-                    guardEmail: snapshot.data?.docs.elementAt(0)['Email']);
+                    guardEmail: snapshot.data!.docs.elementAt(0)['Email']);
               }
             },
           );

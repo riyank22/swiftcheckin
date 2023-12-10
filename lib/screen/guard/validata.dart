@@ -25,7 +25,6 @@ class ValidatePage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 35),
           ),
-          const SizedBox(height: 25),
           Text(
             studentObject.lastName!,
             textAlign: TextAlign.center,
@@ -33,6 +32,11 @@ class ValidatePage extends StatelessWidget {
           ),
           Text(
             studentObject.uniqueID!.toString(),
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 35),
+          ),
+          Text(
+            studentObject.state.toString(),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 35),
           ),
