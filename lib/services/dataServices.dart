@@ -101,15 +101,13 @@ class dataServices {
   }
 
   //for guard for scanning the QR
-  Future syncEntrybyQR(
-      student? studentObject, guard guardObject, String QRresults) async {
+  Future syncEntrybyQR(student? studentObject, guard guardObject,
+      Map<String, String> map) async {
     //decoding the QR Code Result
-    var map = _DecodeQR(QRresults);
 
     if (map['status'] == "Check In") {
       //updating the log table
 
-      studentObject?.state = true;
       await _db
           .collection('Event Log')
           .doc(map['Document ID'])
@@ -137,8 +135,45 @@ class dataServices {
     }
   }
 
+  static Future<student?> getStudentDetailsbyQR(Map<String, String> map) async {
+    //decoding the QR Code Result
+
+    if (map['status'] == "Check In") {
+      //updating the log table
+
+      final result =
+          await _db.collection('Event Log').doc(map['Document ID']).get();
+
+      final snapshot = await _db
+          .collection('Student Details')
+          .where('Unique ID', isEqualTo: result.data()?['Student ID'])
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        final userData = snapshot.docs.map((e) => student.fromID(e)).single;
+        return userData;
+      } else {
+        return null;
+      }
+    } else if (map['status'] == "Check In") {
+      final snapshot = await _db
+          .collection('Student Details')
+          .where('Unique ID', isEqualTo: map['Student ID'])
+          .get();
+      //adding to the log table and updating
+      if (snapshot.docs.isNotEmpty) {
+        final userData = snapshot.docs.map((e) => student.fromID(e)).single;
+        return userData;
+      } else {
+        return null;
+      }
+    } else {
+      return null;
+    }
+  }
+
   //helper function for the above funciton
-  Map<String, String> _DecodeQR(String QRresult) {
+  static Map<String, String> DecodeQR(String QRresult) {
     if (QRresult.startsWith('{Check Out}')) {
       var ans = {'status': 'Check Out'};
       int count = 0;

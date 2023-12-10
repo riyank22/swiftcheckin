@@ -1,5 +1,6 @@
 import 'package:swiftcheckin/dataModels/guard.dart';
 import 'package:swiftcheckin/screen/guard/feature1.dart';
+import 'package:swiftcheckin/screen/guard/feature2.dart';
 import 'package:swiftcheckin/screen/guard/profile.dart';
 import 'package:swiftcheckin/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +67,7 @@ class guardHomePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: ((context) =>
-                                Feature1(guardObject: guardObject)),
+                                ScanQR(guardObject: guardObject)),
                           ),
                         )
                       },

@@ -11,9 +11,9 @@ class ValidatePageQR extends StatelessWidget {
       required this.qrResult})
       : super(key: key);
 
-  student studentObject;
+  student? studentObject;
   guard guardObject;
-  String qrResult;
+  Map<String, String> qrResult;
 
   @override
   Widget build(BuildContext context) {
@@ -26,22 +26,22 @@ class ValidatePageQR extends StatelessWidget {
         children: [
           const SizedBox(height: 25),
           Text(
-            studentObject.firstName!,
+            studentObject!.firstName!,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 35),
           ),
           Text(
-            studentObject.lastName!,
+            studentObject!.lastName!,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 35),
           ),
           Text(
-            studentObject.uniqueID!.toString(),
+            studentObject!.uniqueID!.toString(),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 35),
           ),
           Text(
-            studentObject.state.toString(),
+            studentObject!.state.toString(),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 35),
           ),
