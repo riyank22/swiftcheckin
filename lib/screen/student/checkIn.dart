@@ -6,7 +6,7 @@ import 'package:swiftcheckin/services/dataServices.dart';
 
 class CheckIn extends StatefulWidget {
   CheckIn({Key? key, required this.studentObject}) : super(key: key);
-  student studentObject;
+  student? studentObject;
 
   @override
   State<CheckIn> createState() => _Feature1State();
@@ -20,7 +20,10 @@ class _Feature1State extends State<CheckIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Check In")),
+      appBar: AppBar(
+        title: const Text("Check In"),
+        backgroundColor: Colors.yellow,
+      ),
       //add Current Time over here
       body: FutureBuilder(
         future: dataServices.getEventDetails(widget.studentObject),
@@ -34,19 +37,14 @@ class _Feature1State extends State<CheckIn> {
                   children: [
                     const SizedBox(height: 10),
                     Text(
-                      eventObj.exitTime!.toString(),
+                      'Exit Time: ${eventObj.exitTime!.hour.toString()}:${eventObj.exitTime!.minute.toString()}:${eventObj.exitTime!.second.toString()}',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 35),
+                      style: const TextStyle(fontSize: 35),
                     ),
                     const SizedBox(height: 50),
-                    Text(
-                      eventObj.studentID!.toString(),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 35),
-                    ),
                     const SizedBox(height: 50),
                     Text(
-                      DateTime.now().toString(),
+                      'Entry Time: ${currentTime.hour.toString()}:${currentTime.minute.toString()}:${currentTime.second.toString()}',
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 35),
                     ),
@@ -59,7 +57,7 @@ class _Feature1State extends State<CheckIn> {
                             MaterialPageRoute(
                               builder: ((context) => QR_Page(
                                     data:
-                                        "{Check Out},{${eventObj.DocumentID}}",
+                                        "{{Check In},{${widget.studentObject?.uniqueID.toString()}},{${eventObj.DocumentID}}}",
                                   )),
                             ),
                           );

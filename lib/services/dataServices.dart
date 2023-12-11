@@ -138,29 +138,12 @@ class dataServices {
   static Future<student?> getStudentDetailsbyQR(Map<String, String> map) async {
     //decoding the QR Code Result
 
-    if (map['status'] == "Check In") {
-      //updating the log table
-
-      final result =
-          await _db.collection('Event Log').doc(map['Document ID']).get();
-
+    if (map['status'] == "Check In" || map['status'] == "Check Out") {
       final snapshot = await _db
           .collection('Student Details')
-          .where('Unique ID', isEqualTo: result.data()?['Student ID'])
+          .where('Unique ID', isEqualTo: int.parse(map['Unique ID']!))
           .get();
 
-      if (snapshot.docs.isNotEmpty) {
-        final userData = snapshot.docs.map((e) => student.fromID(e)).single;
-        return userData;
-      } else {
-        return null;
-      }
-    } else if (map['status'] == "Check In") {
-      final snapshot = await _db
-          .collection('Student Details')
-          .where('Unique ID', isEqualTo: map['Student ID'])
-          .get();
-      //adding to the log table and updating
       if (snapshot.docs.isNotEmpty) {
         final userData = snapshot.docs.map((e) => student.fromID(e)).single;
         return userData;
@@ -174,21 +157,26 @@ class dataServices {
 
   //helper function for the above funciton
   static Map<String, String> DecodeQR(String QRresult) {
-    if (QRresult.startsWith('{Check Out}')) {
+    if (QRresult.startsWith('{{Check Out},{')) {
       var ans = {'status': 'Check Out'};
-      int count = 0;
+      int count = 14;
       while (QRresult[count] != '}') {
         count++;
       }
-
-      ans['Unique ID'] = QRresult.substring(13, 12 + count);
-      ans['Reason'] = QRresult.substring(15 + count, QRresult.length - 1);
+      count -= 14;
+      ans['Unique ID'] = QRresult.substring(14, 14 + count);
+      ans['Reason'] = QRresult.substring(17 + count, QRresult.length - 2);
 
       return ans;
-    } else if (QRresult.startsWith('{Check In}')) {
+    } else if (QRresult.startsWith('{{Check In}')) {
       var ans = {'status': 'Check In'};
-
-      ans['Document ID'] = QRresult.substring(12, QRresult.length - 1);
+      int count = 13;
+      while (QRresult[count] != '}') {
+        count++;
+      }
+      count -= 13;
+      ans['Unique ID'] = QRresult.substring(13, 13 + count);
+      ans['Document ID'] = QRresult.substring(16 + count, QRresult.length - 2);
 
       return ans;
     } else {

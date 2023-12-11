@@ -9,7 +9,7 @@ class ValidatePage extends StatelessWidget {
       : super(key: key);
 
   student studentObject;
-  guard guardObject;
+  guard? guardObject;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class ValidatePage extends StatelessWidget {
           ),
           MaterialButton(
             onPressed: () async {
-              dataServices.syncEntry(studentObject, guardObject);
+              dataServices.syncEntry(studentObject, guardObject!);
               Navigator.pop(context);
             },
             color: Colors.blue,

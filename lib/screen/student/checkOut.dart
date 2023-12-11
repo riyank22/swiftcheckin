@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:swiftcheckin/dataModels/student.dart';
-import 'package:swiftcheckin/screen/guard/validata.dart';
 import 'package:swiftcheckin/screen/student/QRpage.dart';
-import 'package:swiftcheckin/services/dataServices.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class CheckOut extends StatefulWidget {
   CheckOut({Key? key, required this.studentObject}) : super(key: key);
-  student studentObject;
+  student? studentObject;
 
   @override
   State<CheckOut> createState() => _Feature1State();
@@ -22,14 +18,22 @@ class _Feature1State extends State<CheckOut> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Check Out")),
+      appBar: AppBar(
+        title: const Text("Check Out"),
+        backgroundColor: Colors.yellow,
+      ),
       //add Current Time over here
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 10),
+              Text(
+                'Exit Time: ${currentTime.hour.toString()}:${currentTime.minute.toString()}:${currentTime.second.toString()}',
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 25),
+              ),
+              const SizedBox(height: 45),
               Container(
                 padding: const EdgeInsets.only(left: 10, right: 10),
                 child: TextField(
@@ -48,9 +52,12 @@ class _Feature1State extends State<CheckOut> {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
               ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.yellowAccent)),
                   onPressed: () {
                     Reason = _textController.text;
                     Navigator.push(
@@ -58,12 +65,15 @@ class _Feature1State extends State<CheckOut> {
                       MaterialPageRoute(
                         builder: ((context) => QR_Page(
                               data:
-                                  "{{Check Out},${widget.studentObject.uniqueID.toString()}},{$Reason}",
+                                  "{{Check Out},{${widget.studentObject?.uniqueID.toString()}},{$Reason}}",
                             )),
                       ),
                     );
                   },
-                  child: const Text('Generate QR Code')),
+                  child: const Text(
+                    'Generate QR Code',
+                    style: TextStyle(color: Colors.black),
+                  )),
             ],
           ),
         ),

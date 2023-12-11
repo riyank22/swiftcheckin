@@ -9,7 +9,10 @@ class QR_Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Check Out")),
+      appBar: AppBar(
+        title: const Text("Scan QR"),
+        backgroundColor: Colors.yellow,
+      ),
       //add Current Time over here
       body: Center(
         child: SingleChildScrollView(

@@ -14,25 +14,39 @@ class _signInState extends State<signIn> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Sign IN Page"), backgroundColor: Colors.green),
+          title: const Text("Welcome to SwiftCheckIn"),
+          backgroundColor: Colors.blue),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            MaterialButton(
-              onPressed: () async {
-                try {
-                  User? user = await authService.signInWithGoogle();
-                } catch (e) {
-                  print(e.toString());
-                  print("Unable to Log in ");
-                }
-              },
-              color: Colors.green,
-              textColor: Colors.black,
-              child: const Text('Login with Google'),
+        child: Container(
+          width: 200,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      User? user = await authService.signInWithGoogle();
+                    } catch (e) {
+                      print(e.toString());
+                      print("Unable to Log in ");
+                    }
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //Image.asset('assets/google_logo.png', height: 25.0),
+                      SizedBox(width: 10.0),
+                      Text(
+                        'Sign in with Google',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -15,7 +15,7 @@ class ScanQR extends StatefulWidget {
     required this.guardObject,
   }) : super(key: key);
 
-  guard guardObject;
+  guard? guardObject;
   @override
   State<ScanQR> createState() => _ScanQRState();
 }
@@ -47,12 +47,7 @@ class _ScanQRState extends State<ScanQR> {
             MaterialButton(
               onPressed: () {
                 scanQR();
-                map = dataServices.DecodeQR(qrResult);
-                if (map['status'] == 'Invalid') {
-                  print("Error scanning QR");
-                } else {
-                  print("sucess");
-                }
+                print(qrResult);
               },
               color: Colors.green,
               child: const Text("Scan QR"),
@@ -63,12 +58,18 @@ class _ScanQRState extends State<ScanQR> {
             ),
             MaterialButton(
               onPressed: () async {
+                print(qrResult);
                 map = dataServices.DecodeQR(qrResult);
+                print(map);
+                if (map['status'] == 'Invalid') {
+                  print("Error scanning QR");
+                } else {
+                  print("sucess");
+                }
                 student? studentObject =
                     await dataServices.getStudentDetailsbyQR(map);
                 if (studentObject == null) {
                   print("Invalid QR Code");
-                  Navigator.pop(context);
                 } else {
                   Navigator.push(
                     context,
