@@ -13,7 +13,7 @@ class ValidatePageQR extends StatelessWidget {
 
   student? studentObject;
   guard? guardObject;
-  Map<String, String> qrResult;
+  Map<String, String>? qrResult;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class ValidatePageQR extends StatelessWidget {
           ),
           MaterialButton(
             onPressed: () async {
-              _db.syncEntrybyQR(studentObject, guardObject!, qrResult);
+              _db.syncEntrybyQR(studentObject, guardObject!, qrResult!);
               Navigator.pop(context);
             },
             color: Colors.blue,

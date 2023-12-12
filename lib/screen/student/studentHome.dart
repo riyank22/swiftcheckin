@@ -29,7 +29,11 @@ class studentHomePage extends StatelessWidget {
                   ),
                 );
               },
-              child: const Icon(Icons.person))
+              child: const Icon(
+                Icons.person,
+                size: 35,
+                color: Colors.black,
+              ))
         ],
       ),
       body: FutureBuilder(
@@ -65,7 +69,8 @@ class studentHomePage extends StatelessWidget {
                               },
                               child: const Text(
                                 "Check Out",
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.black),
                               ),
                             );
                           } else {
@@ -83,7 +88,11 @@ class studentHomePage extends StatelessWidget {
                                   ),
                                 )
                               },
-                              child: const Text("Check In"),
+                              child: const Text(
+                                "Check In",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.black),
+                              ),
                             );
                           }
                         })

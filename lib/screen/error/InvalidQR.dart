@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class errorInvalidID extends StatelessWidget {
-  const errorInvalidID({super.key});
+class InvalidQR extends StatelessWidget {
+  const InvalidQR({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +14,12 @@ class errorInvalidID extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(
-              Icons.warning_rounded,
-              color: Colors.red,
-              size: 150,
-            ),
+            const Icon(Icons.warning_rounded, color: Colors.red, size: 150),
             const SizedBox(
               height: 50,
             ),
             const Text(
-              'Invalid Student ID',
+              'Scanned QR code is invalid!',
               style: TextStyle(fontSize: 25),
             ),
             const SizedBox(

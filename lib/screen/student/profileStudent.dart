@@ -1,6 +1,5 @@
 import 'package:swiftcheckin/dataModels/student.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:swiftcheckin/services/auth.dart';
 
 class profilePage extends StatelessWidget {
@@ -21,11 +20,14 @@ class profilePage extends StatelessWidget {
             },
             child: const Row(
               children: <Widget>[
-                Icon(Icons.logout),
+                Icon(Icons.logout, color: Colors.black, size: 26),
                 SizedBox(
                   width: 5,
                 ),
-                Text('Sign Out'),
+                Text(
+                  'Sign Out',
+                  style: TextStyle(fontSize: 15, color: Colors.black),
+                ),
               ],
             ),
           )

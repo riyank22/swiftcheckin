@@ -46,8 +46,4 @@ class student extends person {
       state: data?['Current Status'],
     );
   }
-
-  Future checkOut() async {}
-
-  Future checkIn() async {}
 }
