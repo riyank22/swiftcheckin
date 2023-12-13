@@ -10,52 +10,83 @@ class ValidatePage extends StatelessWidget {
 
   student studentObject;
   guard? guardObject;
+  String request = "";
+  void getRequest(bool? state) {
+    if (state!) {
+      request = "Check Out request";
+    } else {
+      request = "Check In request";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    getRequest(studentObject.state);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Validate"),
+        backgroundColor: Colors.cyan,
       ),
-      body: ListView(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          const SizedBox(height: 25),
-          Text(
-            studentObject.firstName!,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 35),
+          Column(
+            children: [
+              const Icon(
+                Icons.person,
+                size: 100,
+              ),
+              Text(
+                "${studentObject.firstName!} ${studentObject.lastName!}",
+                style: const TextStyle(fontSize: 35),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                studentObject.uniqueID!.toString(),
+                style: const TextStyle(fontSize: 25),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                studentObject.roomNumber!,
+                style: const TextStyle(fontSize: 25),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                request,
+                style: const TextStyle(fontSize: 35),
+              ),
+            ],
           ),
-          Text(
-            studentObject.lastName!,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 35),
-          ),
-          Text(
-            studentObject.uniqueID!.toString(),
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 35),
-          ),
-          Text(
-            studentObject.state.toString(),
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 35),
-          ),
-          MaterialButton(
-            onPressed: () async {
-              dataServices.syncEntry(studentObject, guardObject!);
-              Navigator.pop(context);
-            },
-            color: Colors.blue,
-            textColor: Colors.white,
-            child: const Text('Validate'),
-          ),
-          MaterialButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            color: Colors.red,
-            textColor: Colors.white,
-            child: const Text('Cancel'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red)),
+                child: const Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  dataServices.syncEntry(studentObject, guardObject!);
+                  Navigator.pop(context);
+                },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.green)),
+                child: const Text(
+                  'Validate',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
           ),
         ],
       ),
